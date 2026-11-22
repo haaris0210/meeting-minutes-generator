@@ -1,0 +1,52 @@
+Dataset: 240 training meetings, 60 test meetings (2378 / 607 sentences, 30% are 'important')
+
+A) Sentence importance classifiers (test set, labels from the ROUGE oracle)
+Model                Precision  Recall  F1   
+-------------------  ---------  ------  -----
+Logistic Regression  0.863      0.944   0.902
+Linear SVM           0.856      0.928   0.891
+Random Forest        0.895      0.944   0.919
+
+B) Summary quality on 60 test meetings (ROUGE F1, higher is better)
+Method                       ROUGE-1  ROUGE-2  ROUGE-L
+---------------------------  -------  -------  -------
+Baseline: first 3 sentences  0.227    0.132    0.188  
+Baseline: TextRank           0.395    0.276    0.370  
+Logistic Regression          0.729    0.617    0.710  
+Linear SVM                   0.723    0.612    0.705  
+Random Forest                0.724    0.613    0.706  
+Upper bound (oracle)         0.733    0.621    0.713  
+
+Best model for the minutes: Logistic Regression
+
+C) Detecting action items and decisions (sentence level, test set)
+Task          Detector         Precision  Recall  F1   
+------------  ---------------  ---------  ------  -----
+Action items  Rules            0.593      1.000   0.745
+Action items  TF-IDF + LogReg  1.000      1.000   1.000
+Decisions     Rules            0.865      0.533   0.660
+Decisions     TF-IDF + LogReg  1.000      1.000   1.000
+
+======================================================================
+EXAMPLE
+======================================================================
+MEETING MINUTES
+(summary model: Logistic Regression)
+
+SUMMARY
+  The baseline is running, but the random forest is very slow on the full dataset.
+  Also, please remind everyone that the report format is shared in the group.
+  Right. We need to finish the demo video before the 25th of November.
+
+DECISIONS
+  - Kabir: Good idea. Let's go with the top five thousand TF-IDF features.
+  - Aman: Agreed, that is the decision then.
+
+ACTION ITEMS
+  Owner       Due                   Task
+  Riya        by Wednesday          I will write the evaluation script by Wednesday.
+  Zoya        by Thursday           Zoya, can you prepare the dataset description for the report by Thursday?
+  Zoya        on Thursday           Sure, I'll have it ready on Thursday.
+  Unassigned  -                     Also, please remind everyone that the report format is shared in the group.
+  Team        25th of November      Right. We need to finish the demo video before the 25th of November.
+  Kabir       on Sunday             I'll record the demo on Sunday once the app is ready.
